@@ -1,29 +1,23 @@
 import os
 import requests
-import json
 
-# GitHub Actionsのイベント情報を取得
-event_path = os.environ.get('GITHUB_EVENT_PATH')
-if event_path and os.path.exists(event_path):
-    with open(event_path, 'r') as f:
-        event = json.load(f)
-else:
-    event = {}
+# コメントしたいIssue番号
+issue_number = 1  # https://github.com/yuki-snow1823/pr-messenger-test/issues/1
 
-pr = event.get('pull_request', {})
-pr_title = pr.get('title', 'PRタイトル')
-pr_url = pr.get('html_url', 'PRリンク')
-pr_user = pr.get('user', {}).get('login', 'ユーザー名')
+# 投稿する内容
+text = "GitHub Actionsからのテストコメントです！"
 
-text = f"PRがマージされました！\nタイトル: {pr_title}\nリンク: {pr_url}\n提案者: {pr_user}"
+# GitHub APIエンドポイント
+repo = os.environ.get('GITHUB_REPOSITORY', 'yuki-snow1823/pr-messenger-test')
+url = f"https://api.github.com/repos/{repo}/issues/{issue_number}/comments"
 
-# X APIに投稿
 headers = {
-    "Authorization": f"Bearer {os.environ['X_BEARER_TOKEN']}",
-    "Content-Type": "application/json"
+    "Authorization": f"Bearer {os.environ['GITHUB_TOKEN']}",
+    "Accept": "application/vnd.github+json"
 }
 payload = {
-    "text": text
+    "body": text
 }
-response = requests.post("https://api.twitter.com/2/tweets", headers=headers, json=payload)
+
+response = requests.post(url, headers=headers, json=payload)
 print(response.status_code, response.text) 
