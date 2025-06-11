@@ -1,11 +1,11 @@
-name: Post PR Info to X
+name: Post PR Info to Issue
 
 on:
   pull_request:
     types: [closed]
 
 jobs:
-  post-to-x:
+  post-to-issue:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,7 +19,6 @@ jobs:
       - name: Run post script
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
         run: |
           pip install requests
-          python .github/scripts/post_to_x.py 
+          python .github/scripts/post_to_issue.py 
