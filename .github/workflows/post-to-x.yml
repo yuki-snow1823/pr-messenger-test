@@ -1,0 +1,25 @@
+name: Post PR Info to X
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  post-to-x:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Run post script
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
+        run: |
+          pip install requests
+          python .github/scripts/post_to_x.py 
