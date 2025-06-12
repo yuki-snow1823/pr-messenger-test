@@ -27,7 +27,7 @@ const prTitle = pr.title ?? 'PRタイトル';
 const prUrl = pr.html_url ?? 'PRリンク';
 const prUser = pr.user?.login ?? 'ユーザー名';
 
-const text = `提案したPRがマージされました！\nタイトル: ${prTitle}\nリンク: ${prUrl}\n提案者: ${prUser}さん`;
+const text = `提案したPRがマージされました！ありがとうございました！\nタイトル: ${prTitle}\nリンク: ${prUrl}\n提案者: ${prUser}さん`;
 // const text = `test`;
 
 const client = new TwitterApi({
