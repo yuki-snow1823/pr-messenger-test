@@ -28,7 +28,6 @@ const prUrl = pr.html_url ?? 'PRリンク';
 const prUser = pr.user?.login ?? 'ユーザー名';
 
 const text = `皆様の政策提案がマニフェストに取り込まれました🎉\nご提案ありがとうございました🙇‍♂️\nタイトル: ${prTitle}\n詳細はこちら: ${prUrl}\n引き続き皆様の政策提案、お待ちしております:😊`;
-// const text = `test`;
 
 const client = new TwitterApi({
   appKey: process.env.TWITTER_API_KEY!,
